@@ -456,6 +456,36 @@ var resizePizzas = function(size) {
       document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
+  
+  function changePizzaSizes(size) {
+	// Storing all pizzas in an array and pizza.length in a variable for one time lookup.
+	var pizzas = document.getElementsByClassName('randomPizzaContainer');
+	var pizzasLength = pizza.length;
+	
+	// Switch between pizza sizes - and returning a string containing a percentage
+	function sizeSwitcher(size) {
+	  switch(size) {
+		  case '1':
+		    return '25%';
+		  case '2':
+		    return '33.33%';
+		  case '3':
+		    return '50%';
+		  default:
+		    console.log('Bug in sizeSwitcher');
+	  }
+	}
+	
+	// Calls the sizeSwitcher function and stores the result in variable
+	var dx = sizeSwitcher(size);
+	
+	// Loop iterates through the pizzas and changes their width.
+	// The newwidth variabel is necessary - because setting width equal to dx triggers the sizeSwitcher function for every pizza.
+	for (var i = pizzasLength; i--;) {
+	  var newwidth = dx;
+	  pizzas[i].style.width = newwidth;
+	}
+  }
 
   changePizzaSizes(size);
 
@@ -501,11 +531,17 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
-  var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  
+  // Saved scrollTop and items.length into variabel for one per frame lookup.
+  // Used getElementsByClassName as selector.
+  var items = document.getElementsByClassName('mover');
+  var scroll = document.body.scrollTop;
+  var len = items.length;
+  
+  // Counting down in a loop saves time. 
+  // But I couldn't measure any upside to having phases as a variable or array.
+  for (var i = len; i--;) {
+    items[i].style.left = items[i].basicLeft + 100 * Math.sin((scroll / 1250) + (i%5)) + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -518,8 +554,12 @@ function updatePositions() {
   }
 }
 
-// runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+// Calls requestAnimation on scroll ... to call requestAnimationFrame
+window.addEventListener('scroll', requestAnimation);
+
+function requestAnimation(){
+	window.requestAnimationFrame(updatePositions);
+}
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
