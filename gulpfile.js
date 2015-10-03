@@ -3,6 +3,7 @@ var deploy = require('gulp-gh-pages');
 var uglify = require('gulp-uglify');
 var minify = require('gulp-minify-css');
 var inline = require('gulp-inline-source');
+var imageop = require('gulp-image-optimization');
 
 gulp.task('scripts', function(){
 	gulp.src('dev/js/*.js')
@@ -25,11 +26,28 @@ gulp.task('styles', function(){
 		.pipe(gulp.dest('dist/views/css/'));
 });
 
+gulp.task('images', function(){
+	gulp.src('dev/img/*')
+		.pipe(imageop({
+			optimizationLevel: 5
+		}))
+		.pipe(gulp.dest('dist/img'));
+	
+	gulp.src('dev/views/images/*')
+		.pipe(imageop({
+			optimizationLevel: 5
+		}))
+		.pipe(gulp.dest('dist/views/images'));
+});
 
 gulp.task('inline', function(){
 	gulp.src('dev/*.html')
 		.pipe(inline())
 		.pipe(gulp.dest('dist'));
+		
+	gulp.src('dev/views/*.html')
+		.pipe(inline())
+		.pipe(gulp.dest('dist/views'));
 });
 
 gulp.task('deploy', function () {
