@@ -1,0 +1,14 @@
+{
+  "name": "optimization",
+  "version": "0.0.1",
+  "description": "Web Optimization (Project 4) of Front-End Nanodegree by Udacity",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sylvia Schmidt (sylvia.schmidt@jielo.de)",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}
