@@ -4,7 +4,7 @@ This is my take on the Udacity Front-End Nanodegree Project 4: Web Optimization.
 
 The goals:
 
-1. Get a Pagespeed score of 90 or above for index.html (mobile and desktop)
+1. Get a Pagespeed score of 90 or above for index.html (on mobile and desktop)
 
 2. Get a consistent frame rate of 60fps when scrolling on pizza.html
 
@@ -20,14 +20,14 @@ Github Repository: https://github.com/spinne/optimization
 
 Github Pages: http://spinne.github.io/optimization/
 
-### File Structur of the Repository
+#### File Structur of the Repository
 
 Development Code:
 
 The development code is completely inside the /dev folder. 
 
 
-Production Code:
+Production (Distribution) Code:
 
 The production code is completely inside the /dist folder. Which is also the 
 code found inside the gh-pages branch of the repository.
@@ -36,7 +36,13 @@ code found inside the gh-pages branch of the repository.
 .publish Folder:
 
 This is a result of gulp-gh-pages, which I used to publish the contents of the
-dist folder to my gh-pages branch.
+/dist folder to my gh-pages branch.
+
+#### Gulp
+I've used Gulp to help me create and deploy my distribution code. I especially
+used the gulp-gh-pages module to push my distribution code to the repository
+gh-pages branch. I love it.
+https://www.npmjs.com/package/gulp-inline-source
 
 ## How to Run the Project
 
@@ -66,8 +72,6 @@ dist folder to my gh-pages branch.
   Unpack it in a local folder.
   Upload the contents of the /dist folder to a folder on your webserver (FTP?).
   Use a browser to navigate to the folder on your webserver.
-  
-  ### Gulp
   
 
 ## Optimizations
