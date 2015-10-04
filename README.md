@@ -140,7 +140,6 @@ Pagespeed score of http://spinne.github.io/optimization/ :
 * Mobile: 95/100
 * Desktop: 97/100
 
----------1---------1---------1---------1---------1---------1---------1---------1
 
 ### pizza.html and main.js
 
@@ -161,7 +160,7 @@ had fixed positions.
 So I first decided to calculate the number of pizzas needed to cover the screen
 instead of setting it at a fixed number. Each pizza moves within a field of 
 256px width and 256px height, by using window.innerWidth and window.innerHeight
-I could to calculate how many pizzas are needed to cover the whole screen. 
+I could calculate how many pizzas are needed to cover the whole screen. 
 I used Math.ceil to round up the calculated number to include partially visible
 rows and columns.
 
@@ -188,7 +187,7 @@ their own composition layer.
 
 Then I changed the complicated process of calculating the new positions of the
 pizzas in updatePositions() by removing the array creation for the pizzas and
-the scrollTop lookup outside the for-loop. The array length was also assigned
+the scrollTop lookup from the for-loop. The array length was also assigned
 to a variable. All of which resulted in six lines of code for the new position
 calculation and assignment.
 
@@ -206,9 +205,54 @@ function updatePositions() {
 	}
 ```
 
+###### Result: ...
+
 ##### Time to Resize
 
+The calculation to resize the pizzas involved calls to a function (determineDx)
+for every single pizza which would then return the new width of this pizza
+container in pixel.
 
+Instead of calculating the change within a for-loop for every pizza I moved
+the calculations outside the loop and only used a for-loop to assign the
+new width to all the pizzas.
+
+By using percentage widths instead of pixel widths I could substitude all 
+calculations with a simple switch inside a function:
+
+```
+function sizeSwitcher(size) {
+	  switch(size) {
+		  case '1':
+		    return '25%';
+		  case '2':
+		    return '33.33%';
+		  case '3':
+		    return '50%';
+		  default:
+		    console.log('Bug in sizeSwitcher');
+	  }
+	}
+```
+
+This simply returns a string containing the percentage width. Assigning the
+returned string to a variable I was able to simply interate through the
+pizzas (held in an array for one time lookup) and change their width:
+
+```
+var dx = sizeSwitcher(size);
+var newwidth = dx;
+
+for (var i = pizzasLength; i--;) {
+  pizzas[i].style.width = newwidth;
+}
+```
+
+Assigning the result of  the sizeSwitcher function to a new variable (newwidth)
+is necessary - because otherwise dx inside the loop triggers would call
+the sizeSwitcher function on every iteration.
+
+###### Result: Time to resize is generally between 0.5ms - 0.7ms
 
 ##### Images & CSS
 
