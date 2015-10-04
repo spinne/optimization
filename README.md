@@ -58,17 +58,17 @@ https://www.npmjs.com/package/gulp-inline-source
   Unpack it in a folder on your local system.
   Create a git repository in your local folder (git init).
   Create an orphant gh-pages branch and remove all files from it.
-  ( -> For help see: https://help.github.com/articles/creating-project-pages-manually/ )
+  ( -> See: https://help.github.com/articles/creating-project-pages-manually/ )
   Get Node and Gulp up and running in your local folder.
-  Install the gulp dependencies. It might be enough to just install gulp-gh-pages.
+  Install the gulp dependencies. Might be enough to just install gulp-gh-pages.
   Run 'gulp deploy' in the command line.
   The (distribution version of the) project should now run at:
   https://your-githup-username.github.io/your-repository
   
   
-  3. Host On A Webserver - In A Pinch!
+  3. Host On Any Webserver - In A Pinch!
   
-  Download the ZIP from https://github.com/spinne/optimization
+  Download the ZIP from https://github.com/spinne/optimization .
   Unpack it in a local folder.
   Upload the contents of the /dist folder to a folder on your webserver (FTP?).
   Use a browser to navigate to the folder on your webserver.
@@ -76,9 +76,79 @@ https://www.npmjs.com/package/gulp-inline-source
 
 ## Optimizations
 
+In order to achive the goals set out in the project specifications I used the 
+Github Pages live version of my code and measured with Pagespeed Insights 
+and the Google Chrome Developer Tools - Timeline.
+
+ 
 ### index.html
 
+Goal: Get the Pagespeed score to 90 or above for both mobile and desktop.
+
+##### CSS
+
+At first I tried splitting the stylesheet into mobile and desktop versions
+and applying media queries to the links. This approach works very well for
+the print.css stylesheet - since it will only be accessed when the page is
+printed.
+
+But splitting the stylesheet resulted in two render blocking sources for 
+mobile. Inlining only the small mobile stylesheet would still leave me
+with a render blocking source. So I decided to keep the stylesheet together
+in my development code and use gulp to inline the whole stylesheet at the
+time of distribution.
+
+Inlining the print.css stylesheet seems unnecessary because it is only 
+accessed at certain times and would only bloat the distribution code. 
+
+Using the media query on print.css and inlining style.css boosted the 
+Pagespeed score.
+
+##### Google Web Fonts
+
+Instead of referencing the Google Web Font as stylesheet link in the head,
+I used the Web Font Loader: https://github.com/typekit/webfontloader .
+Which improved the Pagespeed score but leaves me with a short flash of
+unstyled text onload. 
+
+##### Javascript
+
+I moved all javascript to the bottom of the body tag - including the new script
+for the Web Font Loader - to unblock rendering. Putting the Web Font Loader in
+head would still leave me with a render blocking javascript - and setting the
+call to asynchronous (with the as async attribute) will throw an error because
+the short inline script would execute before the libary is ready.
+
+The analytics script and the perfmatters.js were set to async using the attribute.
+Since analytics doesn't touch the dom and perfmatters only executes after the 
+window.onload event - which fires after all asynchronous scripts are ready.
+
+##### Images
+
+I did most of the image optimization by hand using GIMP. I managed to get much
+better results than only using Gulp to compress the images.
+
+For example: I scaled the pizzaria.jpg down to 100px width, converted to png
+with 8-bit color and managed to get from 2.25MB to 6.91kB. Instead of going
+from 2.25MB to 2.02MB only using Gulp.
+
+I did however run all my images (the ones I optimized by hand too) through a
+gulp task so the final size for pizzaria.png is 6.63kB.
+
+#### Results
+
+Pagespeed score of http://spinne.github.io/optimization/ :
+
+* Mobile: 95/100
+* Desktop: 97/100
+
+
 ### pizza.html and main.js
+
+Goals:
+
+* Get the Framerate down to 60fps when scrolling.
+* Get the 
 
 ### Images
   
