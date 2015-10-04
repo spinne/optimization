@@ -149,14 +149,14 @@ Goals:
 * Get the Framerate down to 60fps when scrolling.
 * Get the time to resize the pizzas to under 5ms.
 
+###### All optimization were done in main.js
+
 ##### 60fps
 
 The main problem were the moving pizzas in the background of pizza.html.
 Timeline showed that it took a very long time to calculate the new positions of
 the 200 pizzas. But only a fraction of the pizzas were ever visible since they
 had fixed positions.
-
-###### main.js line 530 and below.
 
 So I first decided to calculate the number of pizzas needed to cover the screen
 instead of setting it at a fixed number. Each pizza moves within a field of 
@@ -176,15 +176,33 @@ document.addEventListener('DOMContentLoaded', function() {
 ```
 
 I also moved the reference to the parent container outside the for-loop that
-creates the pizza elements and included 
+creates the pizza elements and included the following in the for-loop: 
 
 ```
 elem.style.willChange = 'left';
 ```
 
-To move the background pizzas to their own composition layer.
+By giving the background pizzas the will-change CSS property they moved to 
+their own composition layer. 
 
+Then I changed the complicated process of calculating the new positions of the
+pizzas in updatePositions() by removing the array creation for the pizzas and
+the scrollTop lookup outside the for-loop. The array length was also assigned
+to a variable. All of which resulted in six lines of code for the new position
+calculation and assignment.
 
+```
+function updatePositions() {
+	...
+	var items = document.getElementsByClassName('mover');
+	var scroll = document.body.scrollTop;
+	var len = items.length;
+	
+	for (var i = len; i--;) {
+		items[i].style.left = items[i].basicLeft + 100 * Math.sin((scroll / 1250) + (i%5)) + 'px';
+	}
+	...
+```
 
 ##### Time to Resize
 
