@@ -10,8 +10,6 @@ The goals:
 
 3. Get time to resize pizzas on pizza.html to less than 5ms
 
----------1---------1---------1---------1---------1---------1---------1---------1
-
 ## Github
 
 My code for this project is completely hosted on Github.
@@ -135,20 +133,62 @@ from 2.25MB to 2.02MB only using Gulp.
 I did however run all my images (the ones I optimized by hand too) through a
 gulp task so the final size for pizzaria.png is 6.63kB.
 
-#### Results
+##### Results
 
 Pagespeed score of http://spinne.github.io/optimization/ :
 
 * Mobile: 95/100
 * Desktop: 97/100
 
+---------1---------1---------1---------1---------1---------1---------1---------1
 
 ### pizza.html and main.js
 
 Goals:
 
 * Get the Framerate down to 60fps when scrolling.
-* Get the 
+* Get the time to resize the pizzas to under 5ms.
 
-### Images
+##### 60fps
+
+The main problem were the moving pizzas in the background of pizza.html.
+Timeline showed that it took a very long time to calculate the new positions of
+the 200 pizzas. But only a fraction of the pizzas were ever visible since they
+had fixed positions.
+
+###### main.js line 530 and below.
+
+So I first decided to calculate the number of pizzas needed to cover the screen
+instead of setting it at a fixed number. Each pizza moves within a field of 
+256px width and 256px height, by using window.innerWidth and window.innerHeight
+I could to calculate how many pizzas are needed to cover the whole screen. 
+I used Math.ceil to round up the calculated number to include partially visible
+rows and columns.
+
+```
+document.addEventListener('DOMContentLoaded', function() {
+	var w = window.innerWidth;
+	var h = window.innerHeight;
+	var cols = Math.ceil(w / 256);
+	var rows = Math.ceil(h / 256);
+	var numberPizzas = cols * rows;
+	...
+```
+
+I also moved the reference to the parent container outside the for-loop that
+creates the pizza elements and included 
+
+```
+elem.style.willChange = 'left';
+```
+
+To move the background pizzas to their own composition layer.
+
+
+
+##### Time to Resize
+
+
+
+##### Images
   

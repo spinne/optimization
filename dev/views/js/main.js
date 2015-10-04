@@ -529,8 +529,8 @@ window.addEventListener('scroll', updatePositions);
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
 	// Calculating instead of setting number of pizzas needed to cover the visible screen.
-	// By dividing the screen into rows and collums of 256px height / width.
-	// Rounding up (Math.ceil) to make sure patially visible pizza rows or collums are included.
+	// By dividing the screen into rows and columns of 256px height / width.
+	// Rounding up (Math.ceil) to make sure patially visible pizza rows or columns are included.
 	var w = window.innerWidth;
 	var h = window.innerHeight;
 	var cols = Math.ceil(w / 256);

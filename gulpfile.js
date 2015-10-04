@@ -55,6 +55,4 @@ gulp.task('deploy', function () {
     .pipe(deploy())
 });
 
-gulp.task('default', function() {
-	console.log('Gulp is running');
-});
+gulp.task('default', ['scripts', 'styles', 'images', 'inline']);
