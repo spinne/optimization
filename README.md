@@ -173,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	var rows = Math.ceil(h / 256);
 	var numberPizzas = cols * rows;
 	...
+	}
 ```
 
 I also moved the reference to the parent container outside the for-loop that
@@ -202,11 +203,18 @@ function updatePositions() {
 		items[i].style.left = items[i].basicLeft + 100 * Math.sin((scroll / 1250) + (i%5)) + 'px';
 	}
 	...
+	}
 ```
 
 ##### Time to Resize
 
 
 
-##### Images
-  
+##### Images & CSS
+
+I added a simple scrset to the big pizzaria image in pizza.html and optimized 
+the images accordingly. I also compressed the pizza.png image to 8-bit color.
+
+And I used gulp to minify and inline the style.css into pizza.html.
+
+Both things weren't really necessary but ...
