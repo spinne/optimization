@@ -210,14 +210,14 @@ a variable or array outside the loop.
 
 ###### Results:
 
-I am not sure I get the targeted 60fps. Because if a load (or reload) the page 
+I am not sure I get the targeted 60fps. Because if I load (or reload) the page 
 and wait until it finished loading and then start a recording of the timeline
 while scrolling around for the first time, I get a timeline looking like this:
 
  ![Timeline trace of weird paint spikes](https://github.com/spinne/optimization/blob/master/timeline/zeit-1.png) 
 
 I cannot find where those paint spikes are coming from. But if I start another 
-recording (not reloading the page) my timeline looks like this:
+recording while scrolling around (not reloading the page) my timeline looks like this:
 
  ![Timeline trace of great 60fps framerate](https://github.com/spinne/optimization/blob/master/timeline/zeit-2.png)
 
