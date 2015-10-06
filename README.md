@@ -205,7 +205,28 @@ function updatePositions() {
 	}
 ```
 
-###### Result: ...
+I couldn't find any measurable benefit to having the 'phase' calculation as either 
+a variable or array outside the loop. 
+
+###### Results:
+
+I am not sure I get the targeted 60fps. Because if a load (or reload) the page 
+and wait until it finished loading and then start a recording of the timeline
+while scrolling around for the first time, I get a timeline looking like this:
+
+Format: ![Alt Text](url) 
+
+I cannot find where those paint spikes are coming from. But if I start another 
+recording (an not reloading the page) my timeline lookslike this:
+
+Format: ![Alt Text](url)
+
+I had a scheduled coach appointment where the Udacity Coach couldn't recreate
+my findings on his side - he suggested it might be my version of Chrome or 
+Windows interrupting the timeline.
+
+So, I included the two timeline traces shown above in my github repository:
+
 
 ##### Time to Resize
 
