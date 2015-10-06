@@ -118,8 +118,8 @@ call to asynchronous (with the as async attribute) will throw an error because
 the short inline script would execute before the library is ready.
 
 The analytics script and the perfmatters.js were set to async using the attribute.
-Since analytics doesn't touch the DOM and perfmatters only executes after the 
-window.onload event - which fires after all asynchronous scripts are ready.
+Because analytics.js doesn't touch the DOM and perfmatters.js only executes after 
+the window.onload event - which fires after all asynchronous scripts are ready.
 
 ##### Images
 
@@ -128,7 +128,7 @@ better results than only using Gulp to compress the images.
 
 For example: I scaled the pizzeria.jpg down to 100px width, converted to png
 with 8-bit color and managed to get from 2.25MB to 6.91kB. Instead of going
-from 2.25MB to 2.02MB only using Gulp.
+from 2.25MB to 2.02MB using Gulp.
 
 I did however run all my images (the ones I optimized by hand too) through a
 gulp task so the final size for pizzeria.png is 6.63kB.
@@ -208,20 +208,22 @@ function updatePositions() {
 I couldn't find any measurable benefit to having the 'phase' calculation as either 
 a variable or array outside the loop. 
 
-###### Results:
+##### Results:
 
 I am not sure I get the targeted 60fps. Because if I load (or reload) the page 
-and wait until it finished loading and then start a recording of the timeline
-while scrolling around for the first time, I get a timeline looking like this:
+and wait until it finished loading/rendering and then start a recording of the
+timeline while scrolling around for the first time, I get a timeline 
+looking like this:
 
  ![Timeline trace of weird paint spikes](https://github.com/spinne/optimization/blob/master/timeline/zeit-1.png) 
 
 I cannot find where those paint spikes are coming from. But if I start another 
-recording while scrolling around (not reloading the page) my timeline looks like this:
+recording while scrolling around (not reloading the page) my timeline looks 
+like this:
 
  ![Timeline trace of great 60fps framerate](https://github.com/spinne/optimization/blob/master/timeline/zeit-2.png)
 
-I had a scheduled coach appointment where the Udacity Coach couldn't recreate
+I had a Scheduled Coach Appointment where the Udacity Coach couldn't recreate
 my findings on his side - he suggested it might be my version of Chrome or 
 Windows interrupting the timeline.
 
