@@ -214,12 +214,12 @@ I am not sure I get the targeted 60fps. Because if a load (or reload) the page
 and wait until it finished loading and then start a recording of the timeline
 while scrolling around for the first time, I get a timeline looking like this:
 
-Format: ![Timeline trace of weird paint spikes](https://github.com/spinne/optimization/blob/master/timeline/zeit-1.png) 
+ ![Timeline trace of weird paint spikes](https://github.com/spinne/optimization/blob/master/timeline/zeit-1.png) 
 
 I cannot find where those paint spikes are coming from. But if I start another 
 recording (not reloading the page) my timeline looks like this:
 
-Format: ![Timeline trace of great 60fps framerate](https://github.com/spinne/optimization/blob/master/timeline/zeit-2.png)
+ ![Timeline trace of great 60fps framerate](https://github.com/spinne/optimization/blob/master/timeline/zeit-2.png)
 
 I had a scheduled coach appointment where the Udacity Coach couldn't recreate
 my findings on his side - he suggested it might be my version of Chrome or 
